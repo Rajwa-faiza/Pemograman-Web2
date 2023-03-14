@@ -91,28 +91,46 @@
                     <th>domisili</th>
                     <th>Program Studi</th>
                     <th>Skill Programming</th>
+                    <th>skor</th>
+                    <th>predikat</th>
                 </tr>
-                <?php 
-                if(isset($_POST['submit'])){
-                    $nim = $_POST['nim'];
-                    $nama = $_POST['nama'];
-                    $email = $_POST['email'];
-                    $jenis_kelamin = $_POST['jenis_kelamin'];
-                    $domisili = $_POST['domisili'];
-                    $program_studi = $_POST['program_studi'];
-                    $skill_user = $_POST['skill'];
-                ?>
-                <tr>
-                    <td><?= $nim;?></td>
-                    <td><?= $nama;?></td>
-                    <td><?= $email;?></td>
-                    <td><?= $jenis_kelamin;?></td>
-                    <td><?= $domisili;?></td>
-                    <td><?= $program_studi;?></td>
-                    <td><?php foreach($
-                    skill_user as $skill){echo $skill . " ";}; ?></td>
-                </tr>
-                <?php } ?>
+            <?php 
+            if(isset($_POST['submit'])) {
+                $nim = $_POST['nim'];
+                $nama = $_POST['nama'];
+                $email = $_POST['email'];
+                $jenis_kelamin = $_POST['jenis_kelamin'];
+                $domisili = $_POST['domisili'];
+                $program_studi = $_POST['program_studi'];
+                $skill_programming = $_POST['skill'];
+                $skor_user = 0;
+                    foreach($skill_programming as $skil){$skor_user += $skills[$skil];};
+                $predikat = "";
+                        if($skor_user >=100){
+                            $predikat = "sangat baik";
+                        } elseif ($skor_user >= 75 && $skor_user < 100){
+                            $predikat = "baik";
+                        } elseif ($skor_user >= 50 && $skor_user < 75){
+                            $predikat = "cukup";
+                        } elseif ($skor_user > 0 && $skor_user < 50){
+                            $predikat = "kurang";
+                        } elseif($skor_user == 0){
+                            $predikat = "tidak memadai";
+                        };
+
+            ?>
+            <tr>
+                <td><?= $nim; ?></td>
+                <td><?= $nama; ?></td>
+                <td><?= $email; ?></td>
+                <td><?= $jenis_kelamin; ?></td>
+                <td><?= $domisili; ?></td>
+                <td><?= $program_studi; ?></td>
+                <td><?php foreach($skill_programming as $skill){echo $skill . " ";}; ?></td>
+                <td><?= $skor_user; ?></td>
+                <td><?= $predikat; ?></td>
+            </tr>
+            <?php } ?>
             </table>
     </div>
 </body>
